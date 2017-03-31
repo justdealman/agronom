@@ -20,13 +20,13 @@
 			<nav class="nav">
 				<span class="close"></span>
 				<ul>
-					<li class="active"><a href="#">Парник</a></li>
+					<li class="active"><a href="1" data-anchor-link>Парник</a></li>
 					<li><a href="#">Чудотеплица</a></li>
 					<li><a href="#">Сравнить</a></li>
-					<li><a href="#">Производство</a></li>
-					<li><a href="#">Отзывы</a></li>
+					<li><a href="2" data-anchor-link>Производство</a></li>
+					<li><a href="3" data-anchor-link>Отзывы</a></li>
 					<li><a href="#">Цена</a></li>
-					<li><a href="#">Контакты</a></li>
+					<li><a href="4" data-anchor-link>Контакты</a></li>
 				</ul>
 			</nav>
 			<a href="tel:+78001002259" class="header--phone">8(800)100-22-59</a>
@@ -34,7 +34,7 @@
 		</div>
 	</header>
 	<div class="wrapper">
-		<section class="welcome">
+		<section class="welcome" data-anchor-target="1">
 			<div class="welcome--model">
 				<span class="welcome--model-icon"></span>
 				<div class="welcome--model-graphic">
@@ -80,7 +80,7 @@
 				<li data="4">Клипсы</li>
 			</ul>
 		</section>
-		<section class="production">
+		<section class="production" data-anchor-target="2" data-diff="70">
 			<h2 class="production--title"><span>Наше производство</span></h2>
 			<div class="production__row" data-scroll>
 				<div class="item-1">
@@ -143,19 +143,20 @@
 					<h3>Установка за 2 минуты</h3>
 					<p>Полностью готовый парник не требует специальных навыков и помощников при установке. Просто откройте упаковку и установите парник на грядке.</p>
 				</div>
-				<span class="progress"></span>
+				<span class="progress-line"></span>
+				<span class="progress-arrow"></span>
 			</div>
 			<span class="production__complete" data-scale="1.2"></span>
 			<button class="buy-button">Купить</button>
 		</section>
-		<section class="reviews">
+		<section class="reviews" data-anchor-target="3" data-diff="0">
 			<div class="reviews__row">
 				<h2 class="reviews--title"><span>Наши<br> отзывы</span></h2>
 				<div class="reviews__slider">
 					<div class="item">
 						<div class="container">
 							<div class="pic">
-								<a href="#" class="link"></a>
+								<a href="http://www.youtube.com/watch?v=opj24KnzrWo" class="link modal-video"></a>
 								<div class="bg">
 									<img src="./pic/r-1.jpg" width="300" height="168" class="img-cover" alt="">
 								</div>
@@ -168,7 +169,7 @@
 					<div class="item">
 						<div class="container">
 							<div class="pic">
-								<a href="#" class="link"></a>
+								<a href="http://www.youtube.com/watch?v=opj24KnzrWo" class="link modal-video"></a>
 								<div class="bg">
 									<img src="./pic/r-2.jpg" width="300" height="168" class="img-cover" alt="">
 								</div>
@@ -181,7 +182,7 @@
 					<div class="item">
 						<div class="container">
 							<div class="pic">
-								<a href="#" class="link"></a>
+								<a href="http://www.youtube.com/watch?v=opj24KnzrWo" class="link modal-video"></a>
 								<div class="bg">
 									<img src="./pic/r-3.jpg" width="300" height="168" class="img-cover" alt="">
 								</div>
@@ -194,7 +195,7 @@
 					<div class="item">
 						<div class="container">
 							<div class="pic">
-								<a href="#" class="link"></a>
+								<a href="http://www.youtube.com/watch?v=opj24KnzrWo" class="link modal-video"></a>
 								<div class="bg">
 									<img src="./pic/r-1.jpg" width="300" height="168" class="img-cover" alt="">
 								</div>
@@ -207,7 +208,7 @@
 					<div class="item">
 						<div class="container">
 							<div class="pic">
-								<a href="#" class="link"></a>
+								<a href="http://www.youtube.com/watch?v=opj24KnzrWo" class="link modal-video"></a>
 								<div class="bg">
 									<img src="./pic/r-2.jpg" width="300" height="168" class="img-cover" alt="">
 								</div>
@@ -220,7 +221,7 @@
 					<div class="item">
 						<div class="container">
 							<div class="pic">
-								<a href="#" class="link"></a>
+								<a href="http://www.youtube.com/watch?v=opj24KnzrWo" class="link modal-video"></a>
 								<div class="bg">
 									<img src="./pic/r-3.jpg" width="300" height="168" class="img-cover" alt="">
 								</div>
@@ -243,32 +244,24 @@
 			<div class="calculator__row">
 				<h2 class="calculator--title"><span>Калькулятор урожая</span></h2>
 				<div class="calculator__col">
-					<ul class="calculator--sketch" data="4">
-						<li>
+					<ul class="calculator--sketch" data-current="3" data="1">
+						<li data="3">
 							<span class="segment"></span>
-						</li>
-						<li>
 							<span class="segment"></span>
-							<p><span>2</span> метра</p>
-						</li>
-						<li>
 							<span class="segment"></span>
+							<p><span>3</span> метра</p>
 						</li>
-						<li>
+						<li data="4">
 							<span class="segment"></span>
 							<p><span>4</span> метра</p>
 						</li>
-						<li>
+						<li data="6">
 							<span class="segment"></span>
-						</li>
-						<li>
 							<span class="segment"></span>
 							<p><span>6</span> метров</p>
 						</li>
-						<li>
+						<li data="8">
 							<span class="segment"></span>
-						</li>
-						<li>
 							<span class="segment"></span>
 							<p><span>8</span> метров</p>
 						</li>
@@ -292,7 +285,7 @@
 				<div class="calculator__result">
 					<span class="pic"></span>
 					<h5></h5>
-					<p>килограмм в месяц<i class="tip-icon"></i></p>
+					<p>килограмм в месяц<i class="tip-icon" data-text="Оценка основана на статистике"></i></p>
 				</div>
 				<button class="buy-button">Купить</button>
 			</div>
@@ -332,7 +325,7 @@
 				</ul>
 			</div>
 		</section>
-		<section class="map">
+		<section class="map" data-anchor-target="4" data-diff="30">
 			<div class="map__row">
 				<h2 class="map--title"><span>Мы в<br> регионах</span></h2>
 				<div class="map--container">

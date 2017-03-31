@@ -24,7 +24,7 @@
 					var t = $(this);
 					var y = $(window).height()/6;
 					var diff = ($(document).scrollTop()+y-t.attr('data-start'));
-					if ( diff > 0 ) {
+					if ( diff >= 0 ) {
 						t.css({
 							'-webkit-transform': 'translate('+t.attr('data-x')+'px,'+(diff+(y+parseInt(t.attr('data-y'))))+'px) scale('+(1-t.attr('scale'))+') rotate('+t.attr('data-rotate')+'deg)',
 							'transform': 'translate('+t.attr('data-x')+'px,'+(diff+(y+parseInt(t.attr('data-y'))))+'px) scale('+(1-t.attr('scale'))+') rotate('+t.attr('data-rotate')+'deg)'
@@ -39,7 +39,7 @@
 				$('.production__complete').each(function() {
 					var t = $(this);
 					var diff = ($(document).scrollTop()+$(window).height()/3)-t.attr('data-start');
-					if ( diff > 0 ) {
+					if ( diff >= 0 ) {
 						$('[data-scroll] .animate').css({
 							'opacity': '0'
 						});
@@ -208,7 +208,7 @@
 	});
 	$('input[type="radio"]').uniform();
 	function setEfficiency(e) {
-		var result = e.find('.calculator--sketch').attr('data')*e.find('.calculator--product input:checked').val();
+		var result = e.find('.calculator--sketch').attr('data-current')*e.find('.calculator--product input:checked').val();
 		e.siblings('.calculator__result').find('h5').text(result);
 		$('.calculator__result .pic').css({
 			'background-position': '0 -'+e.find('.calculator--product input:checked').parents('li').index()*150+'px'
@@ -228,22 +228,22 @@
 			setEfficiency($(this));
 		});
 	}
-	$('.calculator--sketch .segment').on('mouseover', function() {
+	$('.calculator--sketch li').on('mouseover', function() {
 		var t = $(this).parents('.calculator__col');
 		t.find('li').removeClass('highlight');
-		for ( var i=0; i<=$(this).parent().index(); i++ ) {
+		for ( var i=0; i<=$(this).index(); i++ ) {
 			t.find('li').eq(i).addClass('highlight');
 		}
-		$(this).parent().addClass('active').siblings().removeClass('active');
+		$(this).addClass('active').siblings().removeClass('active');
 	});
-	$('.calculator--sketch .segment').on('mouseout', function() {
+	$('.calculator--sketch li').on('mouseout', function() {
 		var t = $(this).parents('.calculator__col');
 		setSketchProgress(t);
 		setEfficiency(t);
 	});
-	$('.calculator--sketch .segment').on('click', function() {
+	$('.calculator--sketch li').on('click', function() {
 		var t = $(this).parents('.calculator__col');
-		t.find('.calculator--sketch').attr('data',$(this).parent().index()+1);
+		t.find('.calculator--sketch').attr('data',$(this).index()+1).attr('data-current',$(this).attr('data'));
 		setEfficiency(t);
 	});
 	$('.calculator--product input[type="radio"]').change(function() {
@@ -300,5 +300,43 @@
 	});
 	$('.nav .close, .wrapper, footer').on('click', function() {
 		$('.nav').removeClass('opened');
+	});
+	$('.progress-arrow').on('click', function(e) {
+		e.preventDefault();
+		$('html,body').stop().animate({
+			'scrollTop': parseInt($('.step-4 i').attr('data-start'))-$(window).height()/6
+		}, 500);
+	});
+	$('.tip-icon').on('mouseenter', function() {
+		$('body').append('<p class="tip-message">'+$(this).attr('data-text')+'</p>');
+		$('.tip-message').css({
+			left: $(this).offset().left,
+			top: $(this).offset().top
+		});
+	});
+	$('.tip-icon').on('mouseleave', function() {
+		$('.tip-message').remove();
+	});
+	$('.modal-video').fancybox({
+		openEffect: 'none',
+		closeEffect: 'none',
+		padding: 10,
+		helpers: {
+			media: {}
+		}
+	});
+	$('[data-anchor-link]').on('click', function(e) {
+		e.preventDefault();
+		var diff = $('.header').height();
+		var t = $('[data-anchor-target="'+$(this).attr('href')+'"]');
+		if ( t.attr('data-diff') !== undefined ) {
+			var diff = t.attr('data-diff');
+		} else {
+			var diff = 0;
+		}
+		console.log(diff);
+		$('html,body').stop().animate({
+			scrollTop: t.offset().top-parseInt(diff)
+		}, 500);
 	});
 });
