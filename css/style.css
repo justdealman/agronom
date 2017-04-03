@@ -2184,16 +2184,16 @@ div.checker,div.radio{position:relative}div.checker,div.checker input,div.checke
 .map--container path {
 	fill:rgba(0,0,0,0.1);
 }
-.body_green .map--container path.russia:hover {
+.body_green .map--container path.russia[data-hover] {
 	fill:#74a854;
 }
-.body_green .map--container path.cia:hover {
+.body_green .map--container path.cia[data-hover] {
 	fill:#407222;
 }
-.body_purple .map--container path.russia:hover {
+.body_purple .map--container path.russia[data-hover] {
 	fill:#653686;
 }
-.body_purple .map--container path.cia:hover {
+.body_purple .map--container path[data-hover] {
 	fill:#681360;
 }
 .map--container .tip {
@@ -2232,6 +2232,18 @@ div.checker,div.radio{position:relative}div.checker,div.checker input,div.checke
 	width:91px;
 	height:1px;
 	background:#5b6952;
+	-webkit-transform:rotate(28deg);
+	transform:rotate(28deg);
+	-webkit-transform-origin:left top;
+	transform-origin:left top;
+}
+.map--container .tip i {
+	position:absolute;
+	left:-80px;
+	top:-42px;
+	width:131px;
+	height:41px;
+	margin:-20px 0 0;
 	-webkit-transform:rotate(28deg);
 	transform:rotate(28deg);
 	-webkit-transform-origin:left top;

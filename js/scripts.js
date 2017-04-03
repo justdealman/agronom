@@ -274,26 +274,6 @@
 		e.preventDefault();
 		$('[data-target], .fade-bg').stop(true,true).fadeOut(300);
 	});
-	function removeMapTip() {
-		$('.map--container .tip').remove();
-	}
-	$('.map--container').on('mouseenter', 'path', function() {
-		var t = $(this);
-		var c = $(this).parents('.map--container');
-		var pathLeft = t.position().left;
-		var pathTop = t.position().top;
-		c.append('<div class="tip">\
-			<h5>'+t.attr('data-title')+'</h5>\
-			<p><a href="mailto:'+$(this).attr('data-mail')+'">Связаться с менеджером</a></p>\
-		</div>');
-		c.find('.tip').css({
-			left: (t.offset().left-c.offset().left)+t[0].getBoundingClientRect().width/2,
-			top: (t.offset().top-c.offset().top)+t[0].getBoundingClientRect().height/2
-		});
-	});
-	$('.map--container').on('mouseleave', 'path', function() {
-		removeMapTip();
-	});
 	$('.menu-open').on('click', function(e) {
 		e.preventDefault();
 		$('.nav').addClass('opened');
@@ -306,16 +286,6 @@
 		$('html,body').stop().animate({
 			'scrollTop': parseInt($('.step-4 i').attr('data-start'))-$(window).height()/6
 		}, 500);
-	});
-	$('.tip-icon').on('mouseenter', function() {
-		$('body').append('<p class="tip-message">'+$(this).attr('data-text')+'</p>');
-		$('.tip-message').css({
-			left: $(this).offset().left,
-			top: $(this).offset().top
-		});
-	});
-	$('.tip-icon').on('mouseleave', function() {
-		$('.tip-message').remove();
 	});
 	$('.modal-video').fancybox({
 		openEffect: 'none',
@@ -338,5 +308,41 @@
 		$('html,body').stop().animate({
 			scrollTop: t.offset().top-parseInt(diff)
 		}, 500);
+	});
+});
+$(function() {
+	var hideDelay;
+	function removeTip() {
+		var t = $('.map--container');
+		t.find('.tip').remove();
+		t.find('path').removeAttr('data-hover');
+	}
+	$('.map--container').on('mouseover', 'path', function() {
+		var t = $(this);
+		var c = $(this).parents('.map--container');
+		removeTip();
+		var pathLeft = t.position().left;
+		var pathTop = t.position().top;
+		c.append('<div class="tip">\
+			<h5>'+t.attr('data-title')+'</h5>\
+			<p><a href="mailto:'+$(this).attr('data-mail')+'">Связаться с менеджером</a></p>\
+		<i></i></div>');
+		c.find('.tip').css({
+			left: (t.offset().left-c.offset().left)+t[0].getBoundingClientRect().width/2,
+			top: (t.offset().top-c.offset().top)+t[0].getBoundingClientRect().height/2
+		});
+		t.attr('data-hover','');
+	});
+	$('.map--container').on('mouseleave', 'path[data-hover]', function() {
+		clearTimeout(hideDelay);
+		hideDelay = setTimeout(function() {
+			removeTip();
+		}, 500);
+	});
+	$('.map--container').on('mouseenter', '.tip', function() {
+		clearTimeout(hideDelay);
+	});
+	$('.map--container').on('mouseleave', '.tip', function() {
+		removeTip();
 	});
 });
