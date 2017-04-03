@@ -312,37 +312,46 @@
 });
 $(function() {
 	var hideDelay;
+	var showDelay;
+	var isTip = false;
 	function removeTip() {
 		var t = $('.map--container');
 		t.find('.tip').remove();
 		t.find('path').removeAttr('data-hover');
+		isTip = false;
 	}
-	$('.map--container').on('mouseover', 'path', function() {
+	$('.map--container').on('mouseover', 'path:not([data-hover])', function() {
 		var t = $(this);
-		var c = $(this).parents('.map--container');
-		removeTip();
-		var pathLeft = t.position().left;
-		var pathTop = t.position().top;
-		c.append('<div class="tip">\
-			<h5>'+t.attr('data-title')+'</h5>\
-			<p><a href="mailto:'+$(this).attr('data-mail')+'">Связаться с менеджером</a></p>\
-		<i></i></div>');
-		c.find('.tip').css({
-			left: (t.offset().left-c.offset().left)+t[0].getBoundingClientRect().width/2,
-			top: (t.offset().top-c.offset().top)+t[0].getBoundingClientRect().height/2
-		});
-		t.attr('data-hover','');
+		var c = t.parents('.map--container');
+		if ( isTip == true ) {
+			var delay = 300;
+		} else {
+			var delay = 0;
+		}
+		clearTimeout(showDelay);
+		showDelay = setTimeout(function() {
+			var pathLeft = t.position().left;
+			var pathTop = t.position().top;
+			c.append('<div class="tip">\
+				<h5>'+t.attr('data-title')+'</h5>\
+				<p><a href="mailto:'+$(this).attr('data-mail')+'">Связаться с менеджером</a></p>\
+			</div>');
+			c.find('.tip').css({
+				left: (t.offset().left-c.offset().left)+t[0].getBoundingClientRect().width/2,
+				top: (t.offset().top-c.offset().top)+t[0].getBoundingClientRect().height/2
+			});
+			t.attr('data-hover','');
+			isTip = true;
+		}, delay);
 	});
-	$('.map--container').on('mouseleave', 'path[data-hover]', function() {
+	$('.map--container').on('mouseout', 'path[data-hover], .tip', function() {
 		clearTimeout(hideDelay);
 		hideDelay = setTimeout(function() {
 			removeTip();
-		}, 500);
+		}, 300);
 	});
-	$('.map--container').on('mouseenter', '.tip', function() {
+	$('.map--container').on('mouseover', '.tip, path[data-hover]', function() {
 		clearTimeout(hideDelay);
-	});
-	$('.map--container').on('mouseleave', '.tip', function() {
-		removeTip();
+		clearTimeout(showDelay);
 	});
 });
