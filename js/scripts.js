@@ -340,6 +340,9 @@ $(function() {
 				left: (t.offset().left-c.offset().left)+t[0].getBoundingClientRect().width/2,
 				top: (t.offset().top-c.offset().top)+t[0].getBoundingClientRect().height/2
 			});
+			if ( c.find('.tip').offset().left+c.find('.tip').outerWidth() > $(window).width() ) {
+				c.find('.tip').addClass('to-left');
+			}
 			t.attr('data-hover','');
 			isTip = true;
 		}, delay);
@@ -355,3 +358,15 @@ $(function() {
 		clearTimeout(showDelay);
 	});
 });
+if ( $('.start').length ) {
+	$(window).on('resize', function() {
+		if ( $('.start').height() < 1000 ) {
+			var s = $('.start').height()/1000;
+		} else {
+			var s = 1;
+		}
+		$('.start__inner').css({
+			'transform': 'scale('+s+')'
+		});
+	});
+}
